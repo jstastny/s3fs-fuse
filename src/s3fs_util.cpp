@@ -52,8 +52,11 @@ static size_t max_group_name_length;
 //-------------------------------------------------------------------
 std::string get_realpath(const char *path)
 {
+    S3FS_PRN_INFO3("get_realpath arg: %s", SAFESTRPTR(path));
+    S3FS_PRN_INFO3("get_realpath mount_prefix: %s", SAFESTRPTR(mount_prefix.c_str()));
     std::string realpath = mount_prefix;
     realpath += path;
+    S3FS_PRN_INFO3("get_realpath return: %s", SAFESTRPTR(realpath.c_str()));
 
     return realpath;
 }
