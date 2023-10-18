@@ -3237,14 +3237,15 @@ static std::unique_ptr<S3fsCurl> multi_head_retry_callback(S3fsCurl* s3fscurl)
         }
         ssec_key_pos = -1;
         retry_count++;
+    
     }
+
+    S3FS_PRN_INFO3("retry callback called with GetPath(): %s", SAFESTRPTR(s3fscurl->GetPath().c_str()));
 
     std::unique_ptr<S3fsCurl> newcurl(new S3fsCurl(s3fscurl->IsUseAhbe()));
     std::string path       = s3fscurl->GetPath();
     std::string base_path  = s3fscurl->GetBasePath();
     std::string saved_path = s3fscurl->GetSpecialSavedPath();
-
-    S3FS_PRN_INFO3("Calling PreHeadRequest with path: %s", s3fscurl->GetPath());
 
     if(!newcurl->PreHeadRequest(path, base_path, saved_path, ssec_key_pos)){
         S3FS_PRN_ERR("Could not duplicate curl object(%s).", saved_path.c_str());
