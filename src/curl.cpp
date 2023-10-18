@@ -3214,7 +3214,7 @@ bool S3fsCurl::PreHeadRequest(const char* tpath, const char* bpath, const char* 
     std::string turl;
     MakeUrlResource(get_realpath(tpath).c_str(), resource, turl);
 
-    S3FS_PRN_INFO3("path before", SAFESTRPTR(path));
+    S3FS_PRN_INFO3("path before", SAFESTRPTR(path.c_str()));
     // libcurl 7.17 does deep copy of url, deep copy "stable" url
     url             = prepare_url(turl.c_str());
     path            = get_realpath(tpath);
@@ -3223,7 +3223,7 @@ bool S3fsCurl::PreHeadRequest(const char* tpath, const char* bpath, const char* 
     requestHeaders  = nullptr;
     responseHeaders.clear();
 
-    S3FS_PRN_INFO3("path after", SAFESTRPTR(path));
+    S3FS_PRN_INFO3("path after", SAFESTRPTR(path.c_str()));
 
     // requestHeaders(SSE-C)
     if(0 <= static_cast<ssize_t>(ssekey_pos) && ssekey_pos < S3fsCurl::sseckeys.size()){
